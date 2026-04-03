@@ -1,0 +1,14 @@
+This attribute set contains:
+autoLogin
+autoNumlock
+enable
+enableHidpi
+extraConfig
+extraPackages
+package
+settings
+setupScript
+stopScript
+theme
+themes
+wayland

@@ -1,0 +1,8 @@
+# Ignore Hardware-Specific Config
+hardware-configuration.nix
+
+# Ignore Secrets or Local-Only Files
+secrets.nix
+
+# Ignore Build Artifacts
+result
