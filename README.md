@@ -1,13 +1,20 @@
-# NixOS SDDM Cyberpunk Theme (Debugging Project)
+# NixOS SDDM Cyberpunk Login Theme 
+A custom SDDM login theme built and debugged within a fully declarative NixOS environment.
 
 ## Overview
 This project documents the process of integrating and debugging a custom SDDM cyberpunk theme within a declarative NixOS environment. The goal was to create a fully reproducible and customizable login experience while maintaining system stability and adhering security best practices.
 
 ## Objectives
 - Deploy a custom SDDM theme on NixOS
-- Maintain reproducability using declarative configuration
+- Maintain reproducibility using declarative configuration
 - Debug dependency and path-related issues within the NixOS ecosystem
 - Maintain a secure and clean system configuration suitable for public sharing
+
+## Screenshots
+- Default State
+  - ![SDDM Login Screen](./Screenshots/sddm_login_screen.png)
+- Active Login State
+  - ![SDDM Login Screen Active](./Screenshots/sddm_login_screen-active.png)
 
 ## Technologies Used
 - NixOS (Declarative System Configuration)
@@ -16,7 +23,7 @@ This project documents the process of integrating and debugging a custom SDDM cy
 - i3 Window Manager
 - Git (Version Control)
 
-## What Was Attempted
+## Implemented
 - Packaged theme using 'stdenv.mkDerivation'
 - Configured SDDM with custom theme
 - Resolved Qt dependency issues
@@ -25,61 +32,68 @@ This project documents the process of integrating and debugging a custom SDDM cy
 ## Key Challenges
 This project involved troubleshooting several non-trivial issues:
 1. Dependency Resolution (Qt Packages)
-     - Encountered missing Qt modules (qtquickcontrols, qtquickcontrols2)
-     - Resolved by identifying correct package namespaces within kdePackages and Qt6
+   - Encountered missing Qt modules (qtquickcontrols, qtquickcontrols2)
+   - Resolved by identifying correct package namespaces within kdePackages and Qt6
 
 2. Theme Packaging in Nix Store
-     - Crafted a custom derivation using stdenv.mkDerivation
-     - Endured proper installation path: $out/share/sddm/themes/cyberpunk
+   - Crafted a custom derivation using stdenv.mkDerivation
+   - Ensured proper installation path: $out/share/sddm/themes/cyberpunk
 
 3. Path & Reproducibility Issues
-     - Initial configuration referenced absolute paths (/etc/nixos/...)
-     - Refactored toward project-contained structure for portability
+   - Initial configuration referenced absolute paths (/etc/nixos/...)
+   - Refactored toward project-contained structure for portability
 
 4. SDDM Theme Fallback Behavior
-     - Debugged fallback to default theme due to missing sddm-greeter
-     - Investigated nixos systemd logs: journalctl - display-manager -b
+   - Debugged fallback to default theme due to missing sddm-greeter
+   - Investigated nixos systemd logs: journalctl - display-manager -b
 
 ## Security Considerations
 This repository has been intentionally sanitized to avoid exposing sensitive information.
-- Removed or Avoided"
-     - SSH Keys
-     - API Keys
-     - Users
-     - Passwords
-     - Private Tokens
-     - VPN Account Details
+1. Removed or Avoided
+   - SSH Keys
+   - API Keys
+   - User-Specific Data
+   - Passwords
+   - Private Tokens
+   - VPN Account Details
 
-- Replaced system-specific files via .gitignore:
-     - hardware-configuration.nix
-     - secrets.nix
-     - result
+2. Replaced system-specific files via .gitignore:
+   - hardware-configuration.nix
+   - secrets.nix
+   - result
 
-- Key Principle
-     - Public infrastructure code should be reproducible WITHOUT exposing sensitive information
+3. Key Principle
+   - Public infrastructure code should be reproducible WITHOUT exposing sensitive information
+
+## Real-World Relevance
+This project reflects real-world Linux engineering tasks:
+  - Debugging display manager failures in production systems
+  - Managing UI frameworks (Qt/QML) within controlled environments
+  - Integrating system services with user-facing components
+  - Building reproducible infrastructure using declarative configuration
+These skills directly apply to enterprise Linux, infrastructure engineering, and system reliability roles.
 
 ## Project Structure
 nixos-sddm-cyberpunk/
-- .gitignore
-- configuration-public.nix
-- README.md
-- sddm-config.txt
-- sddm-debug.log
-- themes
-     - cyberpunk/
+  - .gitignore
+  - configuration-public.nix
+  - README.md
+  - sddm-config.txt
+  - sddm-debug.log
+  - screenshot/
+	- sddm_login_screen.png
+	- sddm_login_screen-active.png
+  - themes/
+    - cyberpunk/
 	- Main.qml
 	- theme.conf
 
-## Current Status
-The theme integration process exposed multiple complexeties related to:
-- Nix Store Immutability
-- SDDM Runtime Expectations
-- Qt Dependency Management
-
-This Project is currently archived for future iteration, with plans to explore:
-- greetd + Custom Greeter (Greeter Flexibility & Control)
-- Wayland-Native Login Environments
-- Fully Custom UI Pipelines
+## Project Outcome
+This project exposed key challenges in:
+  - Nix Store Immutability
+  - SDDM Runtime Expectations
+  - Qt Dependency Management
+These insights informed a transition to a more minimal and secure login architecture using greetd.
 
 ## Lessons Learned
 - Declarative systems require strict alignment between config and filesystem state
@@ -94,12 +108,16 @@ This Project is currently archived for future iteration, with plans to explore:
 
 ## Portfolio Reference
 This Project Demonstrates:
-- Linux System Engineering (NixOS)
-- Debugging Complex Dependency Chains
-- Infrastructure-As-Code Practices
-- Security-Conscious Configuration Design
-- Persistence Through Iterative Problem Solving
+  - Linux System Engineering (NixOS)
+  - Debugging Complex Dependency Chains
+  - Infrastructure-As-Code Practices
+  - Security-Conscious Configuration Design
+  - Persistence Through Iterative Problem Solving
 
 ## Acknowledgements
 - NixOS Documentation & Community Resources
 - Open-Source Contributors to SDDM & Qt Ecosystem
+
+## Next Steps
+Based on the limitations encountered with SDDM, I designed a minimal and security-focused login system using greetd:
+[NixOS greetd Cyberpunk Login System](https://github.com/DeadPacket/nixos-greetd-cyberpunk)
